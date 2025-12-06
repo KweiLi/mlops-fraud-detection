@@ -1,0 +1,23 @@
+# Activate environment
+conda activate mlops-fraud
+
+# Stage 1: Core data science stack
+pip install numpy pandas scikit-learn matplotlib seaborn
+
+# Stage 2: ML libraries
+pip install xgboost lightgbm
+
+# Stage 3: MLflow (this will install compatible requests)
+pip install mlflow
+
+# Stage 4: API framework
+pip install fastapi "uvicorn[standard]" pydantic
+
+# Stage 5: Evidently (will upgrade requests if needed)
+pip install evidently
+
+# Stage 6: Cloud
+pip install google-cloud-bigquery google-cloud-storage google-auth
+
+# Stage 7: Rest
+pip install confluent-kafka plotly shap python-dotenv pyyaml tqdm optuna pytest pytest-cov jupyter ipykernel

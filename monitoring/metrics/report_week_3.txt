@@ -1,0 +1,28 @@
+============================================================
+FRAUD DETECTION MODEL PERFORMANCE REPORT
+============================================================
+Period: week_3
+Generated: 2025-12-06T22:01:08.853754
+Samples Evaluated: 25,000
+
+CLASSIFICATION METRICS:
+------------------------------------------------------------
+ROC-AUC:   0.9482
+PR-AUC:    0.5983
+Precision: 0.1403 (14.03%)
+Recall:    0.8450 (84.50%)
+F1 Score:  0.2406
+
+CONFUSION MATRIX:
+------------------------------------------------------------
+True Positives:     398
+False Positives:  2,439
+False Negatives:     73
+True Negatives:  22,090
+
+BUSINESS IMPACT:
+------------------------------------------------------------
+Fraud Prevented: $   398,000
+Fraud Losses:    $    73,000
+False Alarm Cost:$    12,195
+Net Value:       $   385,805

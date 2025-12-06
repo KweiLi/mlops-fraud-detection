@@ -1,0 +1,15 @@
+║  Precision = TP/(TP+FP)                   ║
+║  "When I say fraud, am I right?"          ║
+║  Goal: Minimize false alarms              ║
+║                                            ║
+║  Recall = TP/(TP+FN)                      ║
+║  "How much fraud am I catching?"          ║
+║  Goal: Minimize missed fraud              ║
+║                                            ║
+║  ROC-AUC = Area under ROC curve           ║
+║  "How good is my model overall?"          ║
+║  Goal: > 0.85 is good, > 0.90 is great   ║
+║                                            ║
+║  F1 = 2 × (Precision × Recall)            ║
+║      / (Precision + Recall)               ║
+║  "Balanced score"                         ║

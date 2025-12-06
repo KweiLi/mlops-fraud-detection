@@ -1,0 +1,49 @@
+services:
+  # FastAPI Application
+  fraud-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fraud-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./monitoring:/app/monitoring
+      - ./logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    command: uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Monitoring Service (runs scheduled jobs)
+  monitoring:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fraud-monitoring
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./monitoring:/app/monitoring
+      - ./logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+      - PYTHONUNBUFFERED=1
+    command: python src/monitoring/scheduler.py
+    depends_on:
+      - fraud-api
+    restart: unless-stopped
+
+volumes:
+  models:
+  data:
+  monitoring:
+  logs:
