@@ -77,7 +77,7 @@ jobs:
       
       - name: Generate test data
         run: |
-          python src/data/generate_data.py
+          python src/data/generate_transactions.py
       
       - name: Engineer features
         run: |
