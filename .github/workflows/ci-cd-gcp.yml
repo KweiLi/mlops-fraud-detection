@@ -53,44 +53,44 @@ jobs:
           continue-on-error: true
 
   test:
-    name: Run Tests
-    runs-on: ubuntu-latest
-    needs: code-quality
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      name: Run Tests
+      runs-on: ubuntu-latest
+      needs: code-quality
       
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-          cache: 'pip'
-      
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          pip install pytest pytest-cov
-      
-      - name: Create directories
-        run: |
-          mkdir -p data/raw data/processed models monitoring/metrics monitoring/reports
-      
-      - name: Generate test data
-        run: |
-          python src/data/generate_transactions.py
-      
-      - name: Engineer features
-        run: |
-          python src/data/feature_engineering.py
-      
-      - name: Train model
-        run: |
-          python src/models/train.py
-      
-      - name: Run tests with coverage
-        run: |
-          pytest tests/ -v --cov=src --cov-report=xml --cov-report=term
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        
+        - name: Set up Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: ${{ env.PYTHON_VERSION }}
+            cache: 'pip'
+        
+        - name: Install dependencies
+          run: |
+            pip install -r requirements.txt
+            pip install pytest pytest-cov
+        
+        - name: Create directories
+          run: |
+            mkdir -p data/raw data/processed models monitoring/metrics monitoring/reports
+        
+        - name: Generate test data
+          run: |
+            python src/data/generate_transactions.py
+        
+        - name: Engineer features
+          run: |
+            python src/features/feature_engineering.py
+        
+        - name: Train model
+          run: |
+            python src/models/train.py
+        
+        - name: Run tests with coverage
+          run: |
+            pytest tests/ -v --cov=src --cov-report=xml --cov-report=term
 
   build-and-push:
     name: Build & Push to GAR
