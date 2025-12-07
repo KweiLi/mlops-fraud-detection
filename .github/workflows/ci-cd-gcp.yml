@@ -88,6 +88,15 @@ jobs:
           run: |
             python src/models/train.py
         
+        - name: Upload trained model
+          uses: actions/upload-artifact@v4
+          with:
+            name: trained-model
+            path: |
+              models/*.joblib
+              data/processed/feature_names.txt
+            retention-days: 1
+
         - name: Run tests with coverage
           run: |
             pytest tests/ -v --cov=src --cov-report=xml --cov-report=term
@@ -106,6 +115,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
+      - name: Download trained model
+        uses: actions/download-artifact@v4
+        with:
+          name: trained-model
+      
+      - name: Verify model files
+        run: |
+          echo "Checking for model files..."
+          ls -la models/
+          ls -la data/processed/
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
